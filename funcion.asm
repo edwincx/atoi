@@ -20,6 +20,7 @@ main:
 	call read
 	
 	call atoi
+	call itoa
 
 	call imprimir
 	call salir
@@ -43,30 +44,25 @@ prueba:
 
 atoi:
 	xor r8,r8
-	mov r8,rax
+	mov r8,rax;tamano del numero
 	sub r8,1
 	xor r12,12
-	mov r12,10
+	mov r12,10;para dividir entre 10
 	xor rcx,rcx
-	mov rcx,-1
+	mov rcx,-1;indice de los chats
 	xor r11,r11
 	xor r10,r10
 	mov r10,0;respuesta
-	xor r9,r9
+	xor r9,r9;recorrido total
 	mov r9,r8
-	;add r9,1
 	
-	;xor r8,r8
-	;mov r8,-1
 	.ciclo:
-	;inc r8
 	inc rcx
 	mov r11,r8
 	sub r11,rcx
 	
 	mov bl, byte[BufferReader+rcx]
 	sub bl,'0'
-	;xor rax,rax
 	mov rax,rbx
 	.ciclo2:
 	mul r12
@@ -79,18 +75,49 @@ atoi:
 	cmp r9,0
 	ja .ciclo
 
-	mov rax,r10
-	;div r12
+	mov rax,r10;respuesta
 	
 	;Prueba
-	sub rax,1024
-	cmp rax,0
-	je salir
-	mov rsi,msje
-	mov rdx,8
+	;sub rax,256
+	;cmp rax,0
+	;je salir
+	;mov rsi,msje
+	;mov rdx,8
 	ret
+itoa:
+	xor r12,r12
+	mov r12,10;para dividir y multiplicar entre 10
+	;mov cl,-1
+	xor cl,cl
+	mov cl,-1;indice de los chars
+	;xor r11,r11
+	;xor r10,r10
+	;mov r10,rax;numero para string
+	;xor r13,r13
+	;mov r13,rax;sostiene el numero
+	;xor r9,r9;recorrido total
+	;mov r9,r8
+	;xor r14,r14
+	;mov r14,0
+	
+	.cicl:
+	inc cl
+	div r12
+	cmp al,0
+	mov ah,0
+	ja .cicl
 
 
+	;mov r14,1000
+	;div r14
+	;mov rax,r10;respuesta
+	add cl,'0'
+	mov byte[BufferPrimerByte+0],cl
+
+
+	mov rsi,BufferPrimerByte
+	mov rdx,1
+	ret
 read:
 	mov rax, 0 ; (sysread)
 	mov rdi, 0 ;(stdimp)
