@@ -1,0 +1,104 @@
+# depslib dependency file v1.0
+1429132023 source:c:\users\fabián monge\documents\github\turtlegraphics\turttlegraphics\main.cpp
+	<iostream>
+	<winbgim.h>
+	<string.h>
+	<cmath>
+	"LinkedList.h"
+	"Instrucciones.h"
+	"Turtle.h"
+
+1429122540 c:\users\fabián monge\documents\github\turtlegraphics\turttlegraphics\include\linkedlist.h
+	"Node.h"
+	<stdlib.h>
+	<stdexcept>
+	<iostream>
+
+1428795538 c:\users\fabián monge\documents\github\turtlegraphics\turttlegraphics\include\node.h
+	<stdlib.h>
+
+1429120091 c:\users\fabián monge\documents\github\turtlegraphics\turttlegraphics\include\instrucciones.h
+	<map>
+
+1429131824 c:\users\fabián monge\documents\github\turtlegraphics\turttlegraphics\include\turtle.h
+	<iostream>
+	<winbgim.h>
+	<cmath>
+	"LinkedList.h"
+	"Instrucciones.h"
+
+1429930148 source:c:\users\admin\documents\github\turttlegraphics\main.cpp
+	<iostream>
+	<winbgim.h>
+	<string.h>
+	<cmath>
+	"LinkedList.h"
+	"Instrucciones.h"
+	"Turtle.h"
+
+1429149227 c:\users\admin\documents\github\turttlegraphics\include\linkedlist.h
+	"Node.h"
+	<stdlib.h>
+	<stdexcept>
+	<iostream>
+
+1429150501 c:\users\admin\documents\github\turttlegraphics\include\node.h
+	<stdlib.h>
+
+1429928520 c:\users\admin\documents\github\turttlegraphics\include\instrucciones.h
+	<map>
+
+1429937513 c:\users\admin\documents\github\turttlegraphics\include\turtle.h
+	<winbgim.h>
+	<iostream>
+	<string.h>
+	<cmath>
+	<fstream>
+	<sstream>
+	"LinkedList.h"
+	"Instrucciones.h"
+	"FileManager.h"
+
+1429152228 source:c:\users\admin\documents\universidad\estructura de datos\proyectos\turttlegraphics\main.cpp
+	<iostream>
+	<winbgim.h>
+	<string.h>
+	<cmath>
+	"LinkedList.h"
+	"Instrucciones.h"
+	"Turtle.h"
+
+1429149227 c:\users\admin\documents\universidad\estructura de datos\proyectos\turttlegraphics\include\linkedlist.h
+	"Node.h"
+	<stdlib.h>
+	<stdexcept>
+	<iostream>
+
+1429150501 c:\users\admin\documents\universidad\estructura de datos\proyectos\turttlegraphics\include\node.h
+	<stdlib.h>
+
+1429895649 c:\users\admin\documents\universidad\estructura de datos\proyectos\turttlegraphics\include\instrucciones.h
+	<map>
+
+1429897905 c:\users\admin\documents\universidad\estructura de datos\proyectos\turttlegraphics\include\turtle.h
+	<winbgim.h>
+	<iostream>
+	<string.h>
+	<cmath>
+	<fstream>
+	<sstream>
+	"LinkedList.h"
+	"Archivo.h"
+	"Instrucciones.h"
+	"FileManager.h"
+
+1429152228 c:\users\admin\documents\universidad\estructura de datos\proyectos\turttlegraphics\include\archivo.h
+
+1429896454 c:\users\admin\documents\universidad\estructura de datos\proyectos\turttlegraphics\include\filemanager.h
+	<stdexcept>
+
+1429152228 c:\users\admin\documents\github\turttlegraphics\include\archivo.h
+
+1429929058 c:\users\admin\documents\github\turttlegraphics\include\filemanager.h
+	<stdexcept>
+
