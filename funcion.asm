@@ -1,5 +1,7 @@
 section .data
 	msje db "esta mal",10,0
+	numero db "                             ",10,0
+	lenNumero equ $ - numero
 
 section .bss
 
@@ -18,11 +20,12 @@ section .text
 _start:
 main:
 	call read
-	
+	mov r15,rax
+	sub r15,2
 	call atoi
 	call itoa
 
-	call imprimir
+	;call imprimir
 	call salir
 
 prueba:
@@ -57,22 +60,22 @@ atoi:
 	mov r9,r8
 	
 	.ciclo:
-	inc rcx
-	mov r11,r8
-	sub r11,rcx
+		inc rcx
+		mov r11,r8
+		sub r11,rcx
 	
-	mov bl, byte[BufferReader+rcx]
-	sub bl,'0'
-	mov rax,rbx
-	.ciclo2:
-	mul r12
-	dec r11
-	cmp r11,0
-	ja .ciclo2
-	div r12
-	add r10,rax
-	dec r9
-	cmp r9,0
+		mov bl, byte[BufferReader+rcx]
+		sub bl,'0'
+		mov rax,rbx
+		.ciclo2:
+			mul r12
+			dec r11
+			cmp r11,0
+		ja .ciclo2
+		div r12
+		add r10,rax
+		dec r9
+		cmp r9,0
 	ja .ciclo
 
 	mov rax,r10;respuesta
@@ -85,38 +88,67 @@ atoi:
 	;mov rdx,8
 	ret
 itoa:
-	xor r12,r12
-	mov r12,10;para dividir y multiplicar entre 10
-	;mov cl,-1
-	xor cl,cl
-	mov cl,-1;indice de los chars
+	
+	;xor r12,r12
+	;mov r12,10;para dividir y multiplicar entre 10
+	;xor bl,bl
+	;mov bl,0
 	;xor r11,r11
-	;xor r10,r10
-	;mov r10,rax;numero para string
+	;mov r11,1
 	;xor r13,r13
 	;mov r13,rax;sostiene el numero
-	;xor r9,r9;recorrido total
-	;mov r9,r8
+	
 	;xor r14,r14
 	;mov r14,0
 	
-	.cicl:
-	inc cl
-	div r12
-	cmp al,0
-	mov ah,0
-	ja .cicl
+	;.cicl:
+	;inc bl
+	;mov rax,r11
+	;mul r12
+	;mov r11,rax
+	;mov rax,r13
+	;div r11
+	;cmp al,0
+
+	;mov al,al
+
+	;jne .cicl
+
+	xor rbx,rbx
+	xor rcx,rcx
+	xor r10,r10
+	xor r11,r11
+	xor r13,r13
+	mov rdi,numero
+	mov rbx,10
+	mov r11,r15
+
+	.digito:
+		div rbx
+		mov rcx,rdx
+		add rcx,'0'
+		mov [rdi+r11],cl
+		.prox:
+			xor rdx,rdx
+			xor rcx,rcx
+			dec r11
+			cmp r11,-1
+			je .imp
+			cmp rax,0
+	jne .digito
+	.imp:
+		mov rsi,numero
+		mov rdx,lenNumero
+		call imprimir
+		ret
+	
+	
+	;add bl,'0'
+	;mov byte[BufferPrimerByte+0],bl
 
 
-	;mov r14,1000
-	;div r14
-	;mov rax,r10;respuesta
-	add cl,'0'
-	mov byte[BufferPrimerByte+0],cl
-
-
-	mov rsi,BufferPrimerByte
-	mov rdx,1
+	;mov rsi,BufferPrimerByte
+	;mov rdx,lenBufferPrimerByte
 	ret
 read:
 	mov rax, 0 ; (sysread)
@@ -132,6 +164,7 @@ imprimir:
 	mov rax,1
 	mov rdi,1
 	syscall
+	;ret
 
 salir:
 	mov rax,60 ; (sysExit)
