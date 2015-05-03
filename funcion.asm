@@ -20,9 +20,25 @@ section .text
 _start:
 main:
 	call read
-	mov r15,rax
-	sub r15,2
 	call atoi
+	xor r14,r14
+	mov r14,r15
+	xor r13,13
+	mov r13,r10
+
+	call read
+	call atoi
+
+	
+	cmp r15,14
+	ja .listo
+	mov r15,r14
+
+
+	.listo:
+	inc r15
+	add r10,r13
+	mov rax,r10
 	call itoa
 
 	;call imprimir
@@ -46,9 +62,6 @@ prueba:
 
 
 atoi:
-	xor r8,r8
-	mov r8,rax;tamano del numero
-	sub r8,1
 	xor r12,12
 	mov r12,10;para dividir entre 10
 	xor rcx,rcx
@@ -57,11 +70,13 @@ atoi:
 	xor r10,r10
 	mov r10,0;respuesta
 	xor r9,r9;recorrido total
-	mov r9,r8
+	mov r9,r15
+	dec r9
 	
 	.ciclo:
 		inc rcx
-		mov r11,r8
+		mov r11,r15
+		dec r11
 		sub r11,rcx
 	
 		mov bl, byte[BufferReader+rcx]
@@ -78,7 +93,7 @@ atoi:
 		cmp r9,0
 	ja .ciclo
 
-	mov rax,r10;respuesta
+	;mov rax,r10;respuesta
 	
 	;Prueba
 	;sub rax,256
@@ -114,20 +129,16 @@ itoa:
 
 	;jne .cicl
 
-	xor rbx,rbx
-	xor rcx,rcx
-	xor r10,r10
+	xor rcx,rcx;sostener el digito
 	xor r11,r11
-	xor r13,r13
-	mov rdi,numero
-	mov rbx,10
-	mov r11,r15
+	mov r11,r15;indice
+	sub r11,2
 
 	.digito:
-		div rbx
+		div r12
 		mov rcx,rdx
 		add rcx,'0'
-		mov [rdi+r11],cl
+		mov [numero+r11],cl
 		.prox:
 			xor rdx,rdx
 			xor rcx,rcx
@@ -158,6 +169,7 @@ read:
 	syscall
 	cmp rax, 1
 	jz salir
+	mov r15,rax
 	ret
 
 imprimir:
