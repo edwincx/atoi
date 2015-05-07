@@ -1,15 +1,14 @@
 section .data
-	msje db "Numero:",10,0
-	lenMsje equ $ - msje
-	numero db "                             ",10,0
-	lenNumero equ $ - numero
+	msje db "esta mal",10,0
+	;numero db "               ",10,0
+	;lenNumero equ $ - numero
 
 section .bss
 
 	BufferReader 	 resb 2048
 	lenBufferReader equ $ - BufferReader ; 
-	BufferPrimerByte 	 resb 1024
-	lenBufferPrimerByte equ $ - BufferPrimerByte ; 
+	numero 	 resb 2000
+	lenBufferPrimerByte equ $ - numero ; 
 
 	Operacion  resb 1024; aqui va a ir guardada la expresion separada de las variables
 	lenOperacion equ $ - Operacion;
@@ -20,18 +19,49 @@ section .text
 	global _start
 _start:
 main:
-	mov rsi,msje
-	mov rdx,lenMsje
-	call imprimir
+	call read
+	call atoi
+	xor r14,r14
+	mov r14,r15
+	xor r13,13
+	mov r13,r10
+
 	call read
 	call atoi
 
+	
+	cmp r15,14
+	ja .listo
+	
+
+	inc r15
+
+	.listo:
+	mov r15,r14
+	;inc r15
+	add r10,r13
+	;xor rax,rax
 	mov rax,r10
 	call itoa
 
 	;call imprimir
 	call salir
 
+prueba:
+	xor r14,14
+	mov r14,rax
+	sub r14,2
+	mov rcx,r14
+	dec rcx
+	mov bl,[BufferReader+r14]
+	sub bl,'0'
+	mov rax,rbx
+	sub rax,3
+	cmp rax,0
+	je salir
+	mov rsi,msje
+	mov rdx,9
+	ret
 
 
 atoi:
@@ -76,66 +106,42 @@ atoi:
 	;mov rdx,8
 	ret
 itoa:
-	;xor r13,r13
-	;mov r13,10
-	;xor r12,r12
-	;mov r12,1;para dividir y multiplicar entre 10
-	;mov r10,rax
-	;xor r14,r14
-	;mov r14,0
-	;xor bl,bl
-	;mov bl,0
-	
-	;.cicl:
-	;mov rax,r12
-	;mul r13
-	;mov r12,rax
-	;inc r14
-	;inc bl
-	;mov rax,r10
-	;div r12
-	;cmp rax,r12
-	;ja .cicl
 
-	;add bl,'0'
-	;mov byte[BufferPrimerByte+0],bl
-	;mov rsi,BufferPrimerByte
-	;mov rdx,lenBufferPrimerByte
-	;call imprimir
+	mov rax,r10
 
-	;mov rax,r10
-
-	xor rcx,rcx;sostener el digito
+	xor r12,r12
+	mov r12,10
+	;xor rcx,rcx;sostener el digito
 	xor r11,r11
-	mov r11,r15;indice
-	sub r11,2
-
+	mov r11,-1;indice
+	xor r8,r8
+	mov r8,-1
 	.digito:
+
 		div r12
-		mov rcx,rdx
-		add rcx,'0'
-		mov [numero+r11],cl
+		;xor rcx,rcx
+		;mov rcx,rdx
+		add rdx,'0'
+		push rdx
 		.prox:
 			xor rdx,rdx
-			xor rcx,rcx
-			dec r11
-			cmp r11,-1
-			je .imp
+			;xor rcx,rcx
+			inc r11
 			cmp rax,0
 	jne .digito
 	.imp:
+		.l:
+		inc r8
+		pop rdx
+		mov [numero+r8],dl
+		cmp r8,r11
+		jne .l
+
+		inc r11
 		mov rsi,numero
-		mov rdx,lenNumero
+		mov rdx,r11
 		call imprimir
-		ret
-	
-	
-	add bl,'0'
-	mov byte[BufferPrimerByte+0],bl
 
-
-	mov rsi,BufferPrimerByte
-	mov rdx,lenBufferPrimerByte
 	ret
 read:
 	mov rax, 0 ; (sysread)
