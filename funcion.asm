@@ -30,14 +30,14 @@ main:
 	call atoi
 
 	
-	cmp r15,14
-	ja .listo
+	;cmp r15,14
+	;ja .listo
 	
 
-	inc r15
+	;inc r15
 
-	.listo:
-	mov r15,r14
+	;.listo:
+	;mov r15,r14
 	;inc r15
 	add r10,r13
 	;xor rax,rax
